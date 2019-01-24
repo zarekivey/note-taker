@@ -2,21 +2,25 @@ console.log('starting app.js');
 
 const fs = require('fs');
 const notes = require('./notes.js');
+const yargs = require('yargs'); // Yargs is good for parsing through argv arguments, title, object
 
 const _ = require('lodash');
 
-let command = process.argv[2];
+const argv = yargs.argv;
+let command = argv._[0];
 console.log('command', command);
-console.log(process.argv);
+console.log('Yargs', argv);
+
+
 // From the terminal
-if (command === 'add') {
-    console.log('Adding new note')
+if (command === 'add') { 
+    notes.addNote(argv.title, argv.body)
 } else if (command === 'list') {
-    console.log('Listing all notes')
+    notes.getAll();
 } else if (command === 'remove') {
-    console.log('Removing note')
+    notes.removeNote(argv.title);
 } else if (command === 'read') {
-    console.log('Reading note')
+    notes.getNote(argv.title);
 } else {
     console.log('Command not recognized')
 }
