@@ -1,5 +1,3 @@
-console.log('Starting notes.js');
-
 const fs = require('fs');
 
 let fetchNotes = () => {
@@ -35,25 +33,33 @@ const addNote = (title, body) => {
 };
 
 const getAll = () => {
-    console.log('Getting all notes')
+    return fetchNotes();
 };
 
 const getNote = (title) => {
-    console.log('Getting note', title)
-}
+    let notes = fetchNotes();
+    let filteredNotes = notes.filter((note) => note.title === title);
+    return filteredNotes[0]; 
+};
 
 const removeNote = (title) => {
     let notes = fetchNotes();
     // filtering out the notes that dont match the inputed title
-    var filteredNotes = notes.filter((note) => note.title !== title);
+    let filteredNotes = notes.filter((note) => note.title !== title);
     saveNotes(filteredNotes);
-
     return notes.length !== filteredNotes.length;
-}
+};
+
+let logNote = (note) => {
+    console.log('--');
+    console.log(`Title: ${note.title}`);
+    console.log(`Body: ${note.body}`);
+};
 
 module.exports = {
     addNote,
     getAll,
     getNote,
-    removeNote
+    removeNote,
+    logNote
 };
