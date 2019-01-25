@@ -7,18 +7,28 @@ const yargs = require('yargs'); // Yargs is good for parsing through argv argume
 const _ = require('lodash');
 
 const argv = yargs.argv;
-let command = argv._[0];
+let command = argv._[0]; // fetching the command
 console.log('command', command);
 console.log('Yargs', argv);
 
 
-// From the terminal
+// Parsing data from the terminal
 if (command === 'add') { 
-    notes.addNote(argv.title, argv.body)
+    let note = notes.addNote(argv.title, argv.body);
+    if (note) {
+        console.log('Note created')
+        console.log('--')
+        console.log(`Title: ${note.title}`)
+        console.log(`Body: ${note.body}`)
+    } else {
+        console.log('Title aready used')
+    }
 } else if (command === 'list') {
     notes.getAll();
 } else if (command === 'remove') {
-    notes.removeNote(argv.title);
+    let noteRemoved = notes.removeNote(argv.title);
+    let message = noteRemoved ? 'Note was removed' : 'Note not found';
+    console.log(message);
 } else if (command === 'read') {
     notes.getNote(argv.title);
 } else {
