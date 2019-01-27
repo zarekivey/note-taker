@@ -1,6 +1,6 @@
 # note-taker
 Note Taker is a command line interface note taking application built with node.js
------------USAGE-----------
+
 - From the command line, navigate into the app folder.
 
 - Command List -
